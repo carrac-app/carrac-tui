@@ -1,0 +1,9 @@
+/target
+**/*.rs.bk
+.env
+.env.local
+config.toml
+*.swp
+*.swo
+.DS_Store
+.claude/
