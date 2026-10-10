@@ -719,7 +719,7 @@ mod tests {
             Some(_) => vec![],
         };
         assert_eq!(lines.len(), 1);
-        assert!(!lines[0].spans.is_empty());
+        assert_ne!(lines[0].spans, [] as [ratatui::prelude::Span<'_>; 0]);
     }
 
     #[test]
@@ -953,7 +953,7 @@ mod tests {
     #[test]
     fn highlight_current_match_line_gets_reversed_style() {
         let lines = render_markdown_lines("BTC breakout today", "btc", Some(0));
-        assert!(!lines.is_empty());
+        assert_ne!(lines, [] as [ratatui::prelude::Line<'_>; 0]);
         // Current match → REVERSED modifier on the match span.
         let has_reversed = lines[0]
             .spans
@@ -969,7 +969,7 @@ mod tests {
     fn highlight_non_current_match_no_reversed_style() {
         // current_match_line = Some(5), but our content is only 1 line (line 0).
         let lines = render_markdown_lines("BTC breakout today", "btc", Some(5));
-        assert!(!lines.is_empty());
+        assert_ne!(lines, [] as [ratatui::prelude::Line<'_>; 0]);
         // Match exists but it's not the current one → no REVERSED.
         let has_reversed = lines[0]
             .spans
@@ -1041,7 +1041,7 @@ mod tests {
     #[test]
     fn highlight_line_match_at_start_no_panic() {
         let lines = render_markdown_lines("btc is king", "btc", None);
-        assert!(!lines.is_empty());
+        assert_ne!(lines, [] as [ratatui::prelude::Line<'_>; 0]);
         let has_match = lines[0]
             .spans
             .iter()
@@ -1052,7 +1052,7 @@ mod tests {
     #[test]
     fn highlight_line_match_at_end_no_panic() {
         let lines = render_markdown_lines("king of crypto btc", "btc", None);
-        assert!(!lines.is_empty());
+        assert_ne!(lines, [] as [ratatui::prelude::Line<'_>; 0]);
         let has_match = lines[0]
             .spans
             .iter()
@@ -1098,7 +1098,7 @@ mod tests {
         let lines = render_markdown_lines(content, "", None);
         // Should have 3 lines: prose "a | b", delimiter line rendered (but no bold header),
         // and data line. The key assertion: line 0 is NOT bold (not a table header).
-        assert!(!lines.is_empty());
+        assert_ne!(lines, [] as [ratatui::prelude::Line<'_>; 0]);
         let first_is_bold = lines[0]
             .spans
             .iter()
@@ -1117,7 +1117,7 @@ mod tests {
         // "| H1 | H2 |" starts with '|' → should render as bold table header.
         let content = "| H1 | H2 |\n|---|---|\n| d1 | d2 |";
         let lines = render_markdown_lines(content, "", None);
-        assert!(!lines.is_empty());
+        assert_ne!(lines, [] as [ratatui::prelude::Line<'_>; 0]);
         // Header row (formatted row 0) should be bold.
         let first_is_bold = lines[0]
             .spans

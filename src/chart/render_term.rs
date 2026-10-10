@@ -809,7 +809,7 @@ pub(crate) fn build_chart_rows<G: DotGrid>(
 
         if let Some((hl, _)) = row_line {
             if color_on {
-                out.push_str(&format!(" \x1b[{}m{}\x1b[0m", hl.ansi_color, &hl.label));
+                out.push_str(&format!(" \x1b[{}m{}\x1b[0m", hl.ansi_color, hl.label));
             } else {
                 out.push(' ');
                 out.push_str(&hl.label);
@@ -2899,7 +2899,7 @@ mod render_tests {
     fn volume_pane_produces_output() {
         let data = make_data(50);
         let out = render_volume_pane(&data, 100, 6, 45, 0);
-        assert!(!out.is_empty());
+        assert_ne!(out, "");
         let lines: Vec<&str> = out.lines().collect();
         assert_eq!(lines.len(), 6, "volume pane should have 6 rows");
     }
@@ -2933,8 +2933,8 @@ mod render_tests {
             1.0,
             0.0,
         );
-        assert!(!out_200.is_empty());
-        assert!(!out_20.is_empty());
+        assert_ne!(out_200, "");
+        assert_ne!(out_20, "");
         let density = |s: &str| -> usize {
             s.lines()
                 .take(5)

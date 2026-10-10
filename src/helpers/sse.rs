@@ -126,7 +126,7 @@ mod tests {
     fn captures_error_only() {
         let raw = "data: {\"error\":\"no tool available\"}\n";
         let (tokens, err) = collect_sse_tokens(raw);
-        assert!(tokens.is_empty());
+        assert_eq!(tokens, "");
         assert_eq!(err.as_deref(), Some("no tool available"));
     }
 

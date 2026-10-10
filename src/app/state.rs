@@ -1536,10 +1536,10 @@ mod tests {
         s.query = "btc".to_string();
         let lines = vec!["BTC is up".to_string()];
         s.recompute_find_matches(&lines);
-        assert!(!s.matches.is_empty());
+        assert_ne!(s.matches, [] as [usize; 0]);
         s.query.clear();
         s.recompute_find_matches(&lines);
-        assert!(s.matches.is_empty());
+        assert_eq!(s.matches, [] as [usize; 0]);
     }
 
     #[test]
@@ -1648,7 +1648,7 @@ mod tests {
     #[test]
     fn filtered_positions_empty_when_no_data() {
         let app = App::new();
-        assert!(app.filtered_positions().is_empty());
+        assert_eq!(app.filtered_positions(), [] as [usize; 0]);
     }
 
     #[test]
@@ -1850,8 +1850,8 @@ mod tests {
         assert_eq!(form.symbol, "ETH");
         assert_eq!(form.field, AddAlertField::Price);
         assert_eq!(form.condition, AlertCondition::Above);
-        assert!(form.price.is_empty());
-        assert!(form.note.is_empty());
+        assert_eq!(form.price, "");
+        assert_eq!(form.note, "");
         assert!(!form.submitting);
         assert!(form.error.is_none());
     }

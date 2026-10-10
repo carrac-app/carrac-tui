@@ -206,7 +206,7 @@ args = ["--no-auto-commits"]
             args: cfg.args,
         };
         assert_eq!(resolved.command, "claude");
-        assert!(resolved.args.is_empty());
+        assert_eq!(resolved.args, [] as [std::string::String; 0]);
     }
 
     #[test]
@@ -227,7 +227,7 @@ args = ["--no-auto-commits"]
     #[test]
     fn no_key_anywhere_defaults_to_binance_demo() {
         let cfg = Config::resolve(FileConfig::default(), no_env());
-        assert!(cfg.api_key.is_empty());
+        assert_eq!(cfg.api_key, "");
         assert_eq!(cfg.backend, Backend::Binance);
         assert!(cfg.is_demo());
         // Base URL still resolves to the default (harmless — demo never calls it).

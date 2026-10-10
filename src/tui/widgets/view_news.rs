@@ -233,7 +233,7 @@ mod tests {
         // Any valid RFC 3339 should produce a non-empty, reasonably short string.
         let ts = "2026-05-23T23:07:19+00:00";
         let result = format_published(ts);
-        assert!(!result.is_empty());
+        assert_ne!(result, "");
         // Either HH:MM (5 chars) or MMM DD HH:MM (12 chars).
         assert!(
             result.len() <= 12,
