@@ -2,6 +2,11 @@
 
 All notable changes to carrac-tui are documented here.
 
+## [1.0.2]
+
+- Updates `rustls` (RUSTSEC-2026-0285) and `quinn-proto`
+  (RUSTSEC-2026-0185), both flagged by `cargo audit`
+
 ## [1.0.1]
 
 Carrac is now a self-hosted, open-source app, and the client follows it.
