@@ -1,17 +1,15 @@
 # carrac-tui
 
-[Website](https://carrac.cc/?utm_source=github&utm_medium=readme) · [Get an API key](https://app.carrac.cc/register?utm_source=github&utm_medium=readme) · [Discord](https://discord.gg/jD4he3hq4A)
-
-**Carrac Trader Cockpit** — a market terminal for [Carrac.cc](https://carrac.cc). Candlestick charts, open positions, trading plays, alerts, reports, news and AI workflows — all rendered as crisp Unicode in your terminal, fast enough to live in a tmux pane all day. The browser is the canvas; the terminal is the cockpit.
+**Carrac Trader Cockpit** — a market terminal for [Carrac](https://github.com/carrac-app/carrac), the self-hosted market-analysis app. Candlestick charts, open positions, trading plays, alerts, reports, news and AI workflows — all rendered as crisp Unicode in your terminal, fast enough to live in a tmux pane all day. The browser is the canvas; the terminal is the cockpit.
 
 Not signals to follow — a tool for trading on process.
 
 ![carrac tui — a terminal market cockpit (live demo)](assets/demo.gif)
 
-Want a taste with zero install? Pipe a chart straight into your terminal:
+A Carrac server also draws charts for plain `curl`, no client needed:
 
 ```bash
-curl carrac.cc/btc
+curl localhost:5002/btc
 ```
 
 ## Install
@@ -19,13 +17,13 @@ curl carrac.cc/btc
 **Linux and macOS:**
 
 ```bash
-curl --proto '=https' --tlsv1.2 -LsSf https://github.com/Carrac-cc/carrac-tui/releases/latest/download/carrac-tui-installer.sh | sh
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/carrac-app/carrac-tui/releases/latest/download/carrac-tui-installer.sh | sh
 ```
 
 **Windows** (PowerShell):
 
 ```powershell
-irm https://github.com/Carrac-cc/carrac-tui/releases/latest/download/carrac-tui-installer.ps1 | iex
+irm https://github.com/carrac-app/carrac-tui/releases/latest/download/carrac-tui-installer.ps1 | iex
 ```
 
 Both installers **auto-detect your OS and CPU** and download the right build — the recommended path on every platform, so you don't have to decode any of the names below.
@@ -33,7 +31,7 @@ Both installers **auto-detect your OS and CPU** and download the right build —
 <details>
 <summary><b>Prefer a manual download?</b> (pick a specific build)</summary>
 
-Grab an archive from the [latest release](https://github.com/Carrac-cc/carrac-tui/releases/latest); each holds a single `carrac` binary — drop it on your `PATH`. Not sure which? Run `uname -m`: `x86_64` is an Intel/AMD machine, `aarch64` is ARM.
+Grab an archive from the [latest release](https://github.com/carrac-app/carrac-tui/releases/latest); each holds a single `carrac` binary — drop it on your `PATH`. Not sure which? Run `uname -m`: `x86_64` is an Intel/AMD machine, `aarch64` is ARM.
 
 | Platform | Archive |
 | -------- | ------- |
@@ -52,11 +50,11 @@ Grab an archive from the [latest release](https://github.com/Carrac-cc/carrac-tu
 
 ```bash
 # one command, no clone needed:
-cargo install --git https://github.com/Carrac-cc/carrac-tui
+cargo install --git https://github.com/carrac-app/carrac-tui
 
 # …or clone first if you want to read or modify the code, then install the
 # crate in the current directory (that's what the "." means — not a path you fill in):
-git clone https://github.com/Carrac-cc/carrac-tui
+git clone https://github.com/carrac-app/carrac-tui
 cd carrac-tui
 cargo install --path .
 ```
@@ -74,9 +72,9 @@ carrac chart BTC      # interactive candlestick chart
 carrac tui            # full-screen cockpit
 ```
 
-Add a **Carrac API key** to unlock every surface — positions, plays, alerts, reports, news, the details matrix, the scanner and AI workflows. Register at [carrac.cc/reg](https://carrac.cc/reg) and grab your key from [app.carrac.cc](https://app.carrac.cc).
+Point it at a **Carrac server** to unlock every surface — positions, plays, alerts, reports, news, the details matrix, the scanner and AI workflows. Carrac is self-hosted: [carrac-app/carrac](https://github.com/carrac-app/carrac) starts with one command and serves on `http://localhost:5002`, the client's default. Sign in, create an API key under **Settings → Developer**, and set it as `CARRAC_API_KEY` (or `api_key` in the config file below).
 
-**Your watchlist syncs from your account.** The asset selector (`a`) and the `,` / `.` favourite cycle are populated by the favourites you save on the web at [carrac.cc](https://carrac.cc) — set them there and they appear in the TUI on launch (and re-poll periodically). With no key, the TUI uses a built-in starter list (`BTC`, `ETH`, `SOL`, …) and you can still chart any symbol from the asset selector.
+**Your watchlist syncs from your account.** The asset selector (`a`) and the `,` / `.` favourite cycle are populated by the favourites you save in the Carrac web app — set them there and they appear in the TUI on launch (and re-poll periodically). With no key, the TUI uses a built-in starter list (`BTC`, `ETH`, `SOL`, …) and you can still chart any symbol from the asset selector.
 
 ## Configure
 
@@ -86,7 +84,7 @@ Windows, `%APPDATA%\carrac\carrac\config.toml`.
 
 ```toml
 api_key  = "your-carrac-key"
-base_url = "https://app.carrac.cc"   # default
+base_url = "http://localhost:5002"    # default: a Carrac server on this machine
 backend  = "carrac"                  # "carrac" | "binance" — defaults to carrac when a key is set, else binance
 ```
 
@@ -121,7 +119,7 @@ Press `a` for the asset selector, `r` to force-refresh, and `?` for the full key
 
 There is no built-in chatbot. Press `I` ("Intelligence") in the cockpit and `carrac` suspends itself, writes the current view's context to a workspace — for the chart view that's a rendered `chart.png` plus the underlying data as JSON — and hands your terminal to **your own agent** (Claude Code by default; configurable via `[agent] command = "..."` in config.toml, e.g. `aider` or `gemini`). Quit the agent to drop back into the cockpit.
 
-Your agent doesn't reason over a screenshot of price levels: it gets the chart as structured data, and — once you've connected it to the [Carrac MCP server](https://carrac.cc/mcp?utm_source=github&utm_medium=readme) — live access to your positions, open plays, journal and the market structure underneath. Data, not pixels. Your agent, your tokens, your tooling.
+Your agent doesn't reason over a screenshot of price levels: it gets the chart as structured data, and — once you've connected it to [Carrac’s MCP server](https://github.com/carrac-app/carrac#built-for-agents) — live access to your positions, open plays, journal and the market structure underneath. Data, not pixels. Your agent, your tokens, your tooling.
 
 ## Chart
 
@@ -152,7 +150,7 @@ Chart data flows through a single provider seam (the `Provider` enum). Two backe
 ## Privacy
 
 No telemetry, no analytics, no auto-update. The only network calls `carrac`
-makes are to the backend you configure — the Carrac platform, or a public
+makes are to the backend you configure — your Carrac server, or a public
 exchange in keyless demo mode. Nothing is phoned home.
 
 ## License

@@ -1,12 +1,12 @@
 [package]
 name = "carrac-tui"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2024"
 rust-version = "1.88"
-description = "Carrac Trader Cockpit — a market terminal for Carrac.cc: candlestick charts, positions, plays, alerts and AI workflows"
+description = "Carrac Trader Cockpit — a market terminal for Carrac: candlestick charts, positions, plays, alerts and AI workflows"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/Carrac-cc/carrac-tui"
-homepage = "https://carrac.cc"
+repository = "https://github.com/carrac-app/carrac-tui"
+homepage = "https://github.com/carrac-app/carrac"
 keywords = ["tui", "trading", "charts", "terminal", "candlestick"]
 categories = ["command-line-utilities", "visualization"]
 publish = false

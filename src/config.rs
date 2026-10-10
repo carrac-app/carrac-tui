@@ -2,7 +2,7 @@ use anyhow::Result;
 use serde::Deserialize;
 use std::path::PathBuf;
 
-const DEFAULT_BASE_URL: &str = "https://app.carrac.cc";
+const DEFAULT_BASE_URL: &str = "http://localhost:5002";
 
 /// Which OHLCV backend the client talks to.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
@@ -38,7 +38,7 @@ impl Config {
 
 /// The one-liner every Carrac-only surface prints in the keyless demo. Single
 /// source of truth; the TUI widgets re-export this as `GATED_DEMO_NOTICE`.
-pub const DEMO_GATE_NOTICE: &str = "needs a Carrac API key — carrac.cc/reg-tui";
+pub const DEMO_GATE_NOTICE: &str = "needs a Carrac API key — set CARRAC_API_KEY";
 
 /// CLI guard: in the keyless demo print the gate notice for `command` and
 /// return `true` (caller should return Ok early). Returns `false` on the full

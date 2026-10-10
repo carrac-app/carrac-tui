@@ -1231,7 +1231,7 @@ async fn launch_agent(
         .file_name()
         .map_or_else(|| cmd.to_string(), |s| s.to_string_lossy().into_owned());
     println!(
-        "\n  ── Carrac.cc TUI ────────────────────────────────────────────\n  Launched your agent ({cmd_display}) from the Carrac terminal.\n  You're viewing: {viewing}\n  The agent can read those files and use its MCP tools + the web to dig deeper.\n  Press Ctrl-D (or /exit) to close the agent and return to the TUI.\n  ──────────────────────────────────────────────────────────────\n"
+        "\n  ── Carrac TUI ───────────────────────────────────────────────\n  Launched your agent ({cmd_display}) from the Carrac terminal.\n  You're viewing: {viewing}\n  The agent can read those files and use its MCP tools + the web to dig deeper.\n  Press Ctrl-D (or /exit) to close the agent and return to the TUI.\n  ──────────────────────────────────────────────────────────────\n"
     );
     let _ = std::io::Write::flush(&mut std::io::stdout());
 
@@ -1488,7 +1488,7 @@ pub async fn run() -> Result<()> {
     let saved = load_tui_state();
     let mut app = App::new();
     // Demo mode (keyless Binance): Carrac-only surfaces show a one-liner
-    // pointing at carrac.cc/reg instead of erroring or spinning.
+    // asking for an API key instead of erroring or spinning.
     app.demo = provider.is_demo();
     if app.demo {
         // No server watchlist in demo — seed `,`/`.` cycling + the asset

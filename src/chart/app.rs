@@ -171,7 +171,7 @@ pub async fn run(args: ChartArgs) -> Result<()> {
         // mode the chart still renders in the terminal; PNG is not supported.
         if provider.is_demo() {
             return Err(anyhow!(
-                "carrac chart --png needs a Carrac API key — carrac.cc/reg-tui"
+                "carrac chart --png needs a Carrac API key — set CARRAC_API_KEY"
             ));
         }
         return run_png(&provider, args).await;
@@ -289,7 +289,7 @@ async fn run_png(provider: &Provider, args: ChartArgs) -> Result<()> {
         Provider::Carrac(c) => c,
         Provider::Binance(_) => {
             return Err(anyhow!(
-                "carrac chart --png needs a Carrac API key — carrac.cc/reg-tui"
+                "carrac chart --png needs a Carrac API key — set CARRAC_API_KEY"
             ));
         }
     };

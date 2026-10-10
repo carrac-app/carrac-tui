@@ -163,7 +163,7 @@ fn fallback_failure_message(reason: &str) -> String {
     let reason: String = reason.chars().take(160).collect();
     format!(
         "Binance is blocked in your region and the Kraken fallback failed ({reason}). \
-         Tip: a free Carrac key gives you the full data — carrac.cc/reg-tui"
+         Tip: with a Carrac server and CARRAC_API_KEY set, charts come from Carrac instead."
     )
 }
 
@@ -390,10 +390,10 @@ mod tests {
     #[test]
     fn fallback_failure_message_is_clean_and_actionable() {
         let msg = fallback_failure_message("kraken: SOL not available");
-        // Names both sources, carries the register URL, embeds the reason.
+        // Names both sources, says how to switch to Carrac, embeds the reason.
         assert!(msg.contains("Binance is blocked in your region"));
         assert!(msg.contains("Kraken fallback failed"));
-        assert!(msg.contains("carrac.cc/reg-tui"));
+        assert!(msg.contains("CARRAC_API_KEY"));
         assert!(msg.contains("kraken: SOL not available"));
     }
 

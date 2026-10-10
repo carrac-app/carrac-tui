@@ -2,6 +2,17 @@
 
 All notable changes to carrac-tui are documented here.
 
+## [1.0.1]
+
+Carrac is now a self-hosted, open-source app, and the client follows it.
+
+- The default backend is a Carrac server on this machine
+  (`http://localhost:5002`) instead of the hosted service
+- The API-key prompts say how to connect to your own server
+- The project lives at `github.com/carrac-app/carrac-tui`; installer and
+  `cargo install` URLs follow it
+- Security reports go through GitHub's private vulnerability reporting
+
 ## [1.0.0]
 
 Initial public release.

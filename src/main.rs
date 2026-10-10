@@ -42,7 +42,7 @@ use clap::{Parser, Subcommand};
     name = "carrac",
     version,
     about = "Carrac Trader Cockpit",
-    long_about = "Carrac Trader Cockpit — a market terminal for Carrac.cc: candlestick charts, positions, plays, alerts and AI workflows."
+    long_about = "Carrac Trader Cockpit — a market terminal for Carrac: candlestick charts, positions, plays, alerts and AI workflows."
 )]
 struct Cli {
     #[command(subcommand)]

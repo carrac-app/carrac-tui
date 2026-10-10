@@ -79,9 +79,9 @@ fn write_orientation(dir: &Path, content: &str) -> Result<()> {
         ""
     };
     let preamble = format!(
-        "# Carrac.cc TUI — Agent Session\n\n\
-         You were launched from the Carrac.cc trading terminal (a TUI). On your FIRST reply, \
-         open with a brief 3-5 line welcome stating: you're invoked from the Carrac.cc TUI; \
+        "# Carrac TUI — Agent Session\n\n\
+         You were launched from the Carrac trading terminal (a TUI). On your FIRST reply, \
+         open with a brief 3-5 line welcome stating: you're invoked from the Carrac TUI; \
          what the user is currently viewing (see below); {png_clause}that you can also use your \
          MCP tools and the web to dig deeper; and that pressing Ctrl-D (or `/exit`) returns them \
          to the TUI. Then help with their question.\n\n\
